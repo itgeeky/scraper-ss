@@ -3,15 +3,19 @@ import React from 'react';
 import { Workflow } from '@prisma/client';
 import { Background, BackgroundVariant, Controls, ReactFlow, useEdgesState, useNodesState } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import { createFlowNode } from '@/lib/workflow/create-flow-node';
+import { TaskType } from '@/types/task';
 
 type Props = {
   workflow: Workflow;
 };
 
 function FlowEditor({ workflow }: Props) {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState([
+    createFlowNode(TaskType.LAUNCH_BROWSER)
+  ]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  
+
   return (
     <main className='h-full w-full'>
       <ReactFlow
